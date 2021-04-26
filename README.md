@@ -88,7 +88,9 @@ To get the out-of-the-box dashboard and pre-configured alerts included in this e
 Additionally, the extension comes with the two pre-configured metric events for alerting. To activate them:
 1. Form the Dynatrace navigation menu, select **Settings** > **Anomaly detection** > **Custom events for alerting**.
 2. Find the following events 
+   
    <img src="docs/screenshots/alert_list.png" alt="list of dashboards" width="75%" style="margin:auto; display:block;"/></br>
+   
    
    * **etcd for OpenShift: member has no leader**:  notifies you if any etcd member does not have a leader. Per default, this event immediately triggers as soon as any etcd member is missing a leader. 
    * **etcd for OpenShift: frequent leader changes:**  checks for frequent leader changes within etcd. Per default, this event triggers if any etcd member observes more than one leader change within an hour.
