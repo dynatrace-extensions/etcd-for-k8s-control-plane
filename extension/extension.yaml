@@ -1,0 +1,12 @@
+name: com.dynatrace.extension.${extensionName}
+version: ${version}
+minDynatraceVersion: "1.216"
+author:
+    name: Dynatrace
+  
+dashboards:
+    - path: "dashboards/kubernetes_control_plane_etcd.json"
+
+alerts:
+    - path: "alerts/etcd_no_leader.json"
+    - path: "alerts/etcd_frequent_leader_changes.json"
