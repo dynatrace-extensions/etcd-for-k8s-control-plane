@@ -8,17 +8,8 @@ Dashboard             |  No leader event | Frequent leader changes event
 
 ## <a name="permissions"></a> Prerequisites and supported versions
 
-* Dynatrace version 1.216+
+* Dynatrace version 1.218+
 * ActiveGate version 1.215+ running within the Kubernetes cluster. To have an ActiveGate in your Kubernetes cluster, deploy Dynatrace using [Dynatrace Operator](https://www.dynatrace.com/support/help/shortlink/full-stack-dto-k8) (recommended) or deploy an [ActiveGate as a StatefulSet](https://www.dynatrace.com/support/help/shortlink/connect-kubernetes-clusters).
-* [Dynatrace API token](https://www.dynatrace.com/support/help/shortlink/api-authentication) with the following permissions:
-  * API v2
-     * Read extensions
-     * Write extensions
-     * Read extension environment configurations
-     * Write extension environment configurations
-  * API v1
-     * Read configuration
-     * Write configuration
 * OpenShift 4.
 
 
@@ -49,48 +40,17 @@ After some minutes, you can verify if everything works as expected by finding et
 For troubleshooting and further annotation methods, see [Monitor Prometheus metrics](https://www.dynatrace.com/support/help/shortlink/monitor-prometheus-metrics) in Dynatrace documentation.
 
 ### 3. Install the extension package
-To get the out-of-the-box dashboard and pre-configured alerts included in this extension, you need to use Dynatrace API to upload and enable the extension. Make sure you have an API token with the required [permissions](#permissions). For details on the installation, see [Get started with Extensions 2.0](https://www.dynatrace.com/support/help/shortlink/get-started-extensions20#upload-the-extension) in Dynatrace documentation. 
+To get the out-of-the-box dashboard and pre-configured alerts included in this extension, navigate to the **Dynatrace Hub** within Dynatrace and search for "etcd". Select the "etcd for OpenShift" tile and follow the on-screen guidance to activate the extension. After activating the extension, select **Dashboards** in Dynatrace. You should now find an out-of-the-box **etcd for OpenShift** dashboard.
 
-1. Download the latest version to your desktop from [Dynatrace Extensions Github](https://github.com/dynatrace-extensions/etcd-for-kubernetes-control-plane/releases/latest). 
-2. Upload extension
-   Run the following API call:
-   ```
-   curl -X POST "https://{env-id}.live.dynatrace.com/api/v2/extensions" \
-   -H "accept: application/json; charset=utf-8" \
-   -H "Authorization: Api-Token {api-token}" \
-   -H "Content-Type: multipart/form-data" \
-   -F "file=@{extension.zip};type=application/zip"
-   ```
-   Replace:
-   * {env-id} with your Environment-Id
-   * {api-token} with your api token with required permissions.
-   * {extension.zip} with the local path to the downloaded extension.zip
-
-3. Enable extension
-   Run the following API call:
-   ```
-   curl -X PUT "https://{env-id}.live.dynatrace.com/api/v2/extensions/{extensionName}/environmentConfiguration" \
-   -H "accept: application/json; charset=utf-8" \
-   -H "Authorization: Api-Token `{api-token}" \
-   -H "Content-Type: application/json; charset=utf-8" \
-   -d "{\"version\":\"{version}\"}"
-   ```
-   Please replace:
-   * {env-id} with your Environment-Id
-   * {extensionName} with com.dynatrace.extension.etcd-for-kubernetes-control-plane
-   * {api-token} with your api token with required permissions.
-   * {version} with the extension's version you want to enable (e.g., 1.0.0)
-4. In Dynatrace, select **Dashboards**. You should now find an out-of-the-box **etcd for OpenShift** dashboard.
-
-   <img src="docs/screenshots/dashboard_list.png" alt="list of dashboards" width="75%" style="margin:auto; display:block;"/></br>
+<img src="docs/screenshots/dashboard_list.png" alt="list of dashboards" width="75%" style="margin:auto; display:block;"/></br>
 
 ### 4. Activate metric events for alerting
 Additionally, the extension comes with the two pre-configured metric events for alerting. To activate them:
-1. Form the Dynatrace navigation menu, select **Settings** > **Anomaly detection** > **Custom events for alerting**.
-2. Find the following events 
-   
+1. From the Dynatrace navigation menu, select **Settings** > **Anomaly detection** > **Custom events for alerting**.
+2. Find the following events
+
    <img src="docs/screenshots/alert_list.png" alt="list of dashboards" width="75%" style="margin:auto; display:block;"/></br>
-   
+
    
    * **etcd for OpenShift: member has no leader**:  notifies you if any etcd member does not have a leader. Per default, this event immediately triggers as soon as any etcd member is missing a leader. 
    * **etcd for OpenShift: frequent leader changes:**  checks for frequent leader changes within etcd. Per default, this event triggers if any etcd member observes more than one leader change within an hour.
@@ -106,4 +66,4 @@ metrics.dynatrace.com/port- metrics.dynatrace.com/scrape- metrics.dynatrace.com/
 metrics.dynatrace.com/tls.ca.crt- metrics.dynatrace.com/tls.crt- metrics.dynatrace.com/tls.key-
 ```
 ### 2. Deactivate the extension
-To remove the out-of-the-box dashboard and alerts, deactivate the extension using instructions from [Delete extenesion](https://www.dynatrace.com/support/help/shortlink/get-started-extensions20#delete-extension) in Dynatrace documentation.
+To remove the out-of-the-box dashboard and alerts, deactivate the extension via the **Dynatrace Hub**.
