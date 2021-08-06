@@ -23,18 +23,6 @@
         }
       }
     ],
-    "metricDimensions": [
-      {
-        "filterType": "STRING",
-        "key": "k8s.namespace.name",
-        "name": null,
-        "index": null,
-        "textFilter": {
-          "value": "openshift-etcd",
-          "operator": "EQUALS"
-        }
-      }
-    ],
     "monitoringStrategy": {
       "type": "STATIC_THRESHOLD",
       "samples": 60,

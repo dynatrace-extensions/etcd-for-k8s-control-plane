@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: dynatrace-monitoring-etcd-ocp3
+  namespace: kube-system
+  annotations:
+    metrics.dynatrace.com/port: '2379'
+    metrics.dynatrace.com/scrape: 'true'
+    metrics.dynatrace.com/secure: 'true'
+    metrics.dynatrace.com/tls.ca.crt: 'configmap:dynatrace:etcd-data:ca.crt'
+    metrics.dynatrace.com/tls.crt: 'secret:dynatrace:etcd-data:tls.crt'
+    metrics.dynatrace.com/tls.key: 'secret:dynatrace:etcd-data:tls.key'
+spec:
+  ports:
+    - name: dynatrace-monitoring-etcd-ocp3-port
+      port: 2379
+  selector:
+    openshift.io/component: etcd
+    openshift.io/control-plane: 'true'
+  clusterIP: None
+  
+
