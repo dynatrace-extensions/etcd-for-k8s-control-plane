@@ -1,6 +1,6 @@
 name: com.dynatrace.extension.<%=extensionName%>
 version: <%=version%>
-minDynatraceVersion: "1.222"
+minDynatraceVersion: "1.245"
 
 author:
     name: Dynatrace
@@ -11,30 +11,32 @@ dashboards:
 metrics:
   - key: process_resident_memory_bytes
     metadata:
+      displayName: "Process resident memory"
       unit: Byte
 
   - key: etcd_mvcc_db_total_size_in_bytes
     metadata:
-      unit: Byte
-
-  - key: process_resident_memory_bytes
-    metadata:
+      displayName: "Etcd mvcc database total size"
       unit: Byte
 
   - key: etcd_network_client_grpc_received_bytes_total.count
     metadata:
+      displayName: "Etcd network client grpc data received"
       unit: Byte
 
   - key: etcd_network_client_grpc_sent_bytes_total.count
     metadata:
+      displayName: "Etcd network client grpc data sent"
       unit: Byte
 
   - key: etcd_network_peer_received_bytes_total.count
     metadata:
+      displayName: "Etcd network peer data received"
       unit: Byte
 
   - key: etcd_network_peer_sent_bytes_total.count
     metadata:
+      displayName: "Etcd network peer data sent"
       unit: Byte
 
 alerts:
