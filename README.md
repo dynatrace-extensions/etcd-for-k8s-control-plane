@@ -2,9 +2,9 @@
 This extension provides you with deep insights into your self-managed [OpenShift](https://www.openshift.com/) control plane using [etcd metrics](https://etcd.io/docs/current/metrics/) exposed on your cluster in the Prometheus/[OpenMetrics](https://github.com/OpenObservability/OpenMetrics) format. It provides an out-of-the-box [dashboard](#screenshots) and pre-configured [alerts](#screenshots). To give you a brief impression what you get with this extension, have a look at the [screenshots](#screenshots) below. Of course, you can also build your own [dashboards](https://www.dynatrace.com/support/help/shortlink/custom-dashboards) and [metric events for alerting](https://www.dynatrace.com/support/help/shortlink/metric-events-for-alerting) based on the [metrics exposed by etcd](https://etcd.io/docs/current/metrics/).
 
 ## <a name="screenshots"></a>Screenshots
-Dashboard             |  No leader event | Frequent leader changes event
-:-------------------------:|:-------------------------:|:-----:
-<img src="docs/screenshots/etcd_for_openshift_dashboard_01.png" alt="screenshot dashboard 1" width="100%"/>  |  <img src="docs/screenshots/etcd_for_openshift_alert_01.png" alt="screenshot alert 1" width="100%"/> | <img src="docs/screenshots/etcd_for_openshift_alert_02.png" alt="screenshot alert 2" width="100%"/>
+|Dashboard             |  No leader event | Frequent leader changes event|
+|:-------------------------:|:-------------------------:|:-----:|
+|<img src="docs/screenshots/etcd_for_openshift_dashboard_01.png" alt="screenshot dashboard 1" width="100%"/>  |  <img src="docs/screenshots/etcd_for_openshift_alert_01.png" alt="screenshot alert 1" width="100%"/> | <img src="docs/screenshots/etcd_for_openshift_alert_02.png" alt="screenshot alert 2" width="100%"/>|
 
 ## <a name="permissions"></a> Prerequisites and supported versions
 
@@ -19,7 +19,7 @@ Dashboard             |  No leader event | Frequent leader changes event
 Follow the steps to install the etcd for OpenShift extension.
 
 ### 1. Enable Prometheus monitoring in Dynatrace
-In your Dynatrace environment, go to **Settings** > **Cloud and virtualization** > **Kubernetes** and turn on **Enable monitoring** and **Monitor Prometheus exporters**. For more information see our [official documentation](https://www.dynatrace.com/support/help/shortlink/monitor-prometheus-metrics).
+In your Dynatrace environment, go to **Kubernetes**, edit your Kubernetes cluster settings, and turn on **Enable monitoring** and **Monitor annotated Prometheus exporters**. For more information see our [official documentation](https://www.dynatrace.com/support/help/shortlink/monitor-prometheus-metrics).
 
 ### <a name="ingestmetrics"></a> 2. Start ingesting etcd metrics
 To ingest metrics exposed by etcd, the related service needs to be annotated with specific Dynatrace annotations. Based on the used OpenShift version, use the corresponding instructions below. Before executing any of the instructions below, ensure your kubectl is configured to use the Kubernetes cluster you want to monitor.
