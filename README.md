@@ -8,8 +8,8 @@ This extension provides you with deep insights into your self-managed [OpenShift
 
 ## <a name="permissions"></a> Prerequisites and supported versions
 
-* Dynatrace version 1.222+
-* ActiveGate version 1.222+ running within the Kubernetes cluster. To have an ActiveGate in your Kubernetes cluster, deploy Dynatrace using [Dynatrace Operator](https://www.dynatrace.com/support/help/shortlink/full-stack-dto-k8) (recommended) or deploy an [ActiveGate as a StatefulSet](https://www.dynatrace.com/support/help/shortlink/connect-kubernetes-clusters).
+* Dynatrace version 1.242+
+* ActiveGate version 1.222+ running within the Kubernetes cluster and Kubernetes connection settings set to "Connecting containerized ActiveGate to local Kubernetes API endpoint". To have an ActiveGate in your Kubernetes cluster, deploy Dynatrace using [Dynatrace Operator](https://www.dynatrace.com/support/help/shortlink/full-stack-dto-k8) (recommended) or deploy an [ActiveGate as a StatefulSet](https://www.dynatrace.com/support/help/shortlink/connect-kubernetes-clusters).
 * OpenShift 4 and OpenShift 3 (self-managed)
 * Granted permission to 'configmaps/get' and 'secrets/get' for the service account used for Kubernetes API monitoring (typically, dynatrace-kubernetes-monitoring)
 
