@@ -12,6 +12,7 @@ This extension provides you with deep insights into your self-managed [OpenShift
 * ActiveGate version 1.222+ running within the Kubernetes cluster and Kubernetes connection settings set to "Connecting containerized ActiveGate to local Kubernetes API endpoint". To have an ActiveGate in your Kubernetes cluster, deploy Dynatrace using [Dynatrace Operator](https://www.dynatrace.com/support/help/shortlink/full-stack-dto-k8) (recommended) or deploy an [ActiveGate as a StatefulSet](https://www.dynatrace.com/support/help/shortlink/connect-kubernetes-clusters).
 * OpenShift 4 and OpenShift 3 (self-managed)
 * Granted permission to 'configmaps/get' and 'secrets/get' for the service account used for Kubernetes API monitoring (typically, dynatrace-kubernetes-monitoring)
+* Starting with ActiveGate version 1.353, secrets and configmaps referenced in annotations must be in the same namespace as the annotated service. References to other namespaces are blocked and the endpoint isn't scraped.
 
 
 ## Install extension
@@ -28,9 +29,9 @@ To ingest metrics exposed by etcd, the related service needs to be annotated wit
 ```
 kubectl annotate --overwrite service etcd -n openshift-etcd \
 metrics.dynatrace.com/port='9979' metrics.dynatrace.com/scrape='true' metrics.dynatrace.com/secure='true' \
-metrics.dynatrace.com/tls.ca.crt='configmap:openshift-config:etcd-metric-serving-ca:ca-bundle.crt' \
-metrics.dynatrace.com/tls.crt='secret:openshift-config:etcd-metric-client:tls.crt' \
-metrics.dynatrace.com/tls.key='secret:openshift-config:etcd-metric-client:tls.key'
+metrics.dynatrace.com/tls.ca.crt='configmap:openshift-etcd:etcd-metric-serving-ca:ca-bundle.crt' \
+metrics.dynatrace.com/tls.crt='secret:openshift-etcd:etcd-metric-client:tls.crt' \
+metrics.dynatrace.com/tls.key='secret:openshift-etcd:etcd-metric-client:tls.key'
 ```
 #### OpenShift 3
 For OpenShift 3, the required TLS files need to be created and stored in secrets - creating the same situation that is the default for OpenShift 4. To achieve this easily, we provide a script that follows the [official documentation of OpenShift](https://docs.openshift.com/container-platform/3.11/install_config/prometheus_cluster_monitoring.html#configuring-etcd-monitoring_prometheus-cluster-monitoring). For executing the script, download the [script](https://github.com/dynatrace-extensions/etcd-for-k8s-control-plane/scripts/activate_etcd_scraping_ocp3.sh) itself and the [dynatrace-monitoring-etcd-ocp3-service.yaml](https://github.com/dynatrace-extensions/etcd-for-k8s-control-plane/scripts/dynatrace-monitoring-etcd-ocp3-service.yaml) file. Store both files in a single folder and execute the ```activate_etcd_scraping_ocp3.sh``` script.
@@ -72,8 +73,8 @@ metrics.dynatrace.com/tls.ca.crt- metrics.dynatrace.com/tls.crt- metrics.dynatra
 ```
 #### OpenShift 3
 ```
-kubectl delete configmap etcd-data -n dynatrace
-kubectl delete secret etcd-data -n dynatrace
+kubectl delete configmap etcd-data -n kube-system
+kubectl delete secret etcd-data -n kube-system
 kubectl delete service dynatrace-monitoring-etcd-ocp3 -n kube-system
 ```
 ### 2. Deactivate the extension

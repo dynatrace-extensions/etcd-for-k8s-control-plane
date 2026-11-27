@@ -32,9 +32,9 @@ openssl req -new -key $ETCD_KEY -out $ETCD_CSR -subj "/CN=dynatrace-etcd-monitor
 openssl x509 -req -in $ETCD_CSR -CA $CA_CRT -CAkey $CA_KEY -CAcreateserial -out $ETCD_CRT -days 365 -extensions v3_req -extfile $CONFIG
 
 #Write to K8s secret
-kubectl create secret tls etcd-data --cert=$ETCD_CRT --key=$ETCD_KEY -n dynatrace
+kubectl create secret tls etcd-data --cert=$ETCD_CRT --key=$ETCD_KEY -n kube-system
 #Create configmap for ca.crt
-kubectl create configmap etcd-data -n dynatrace --from-file=ca.crt=$CA_CRT
+kubectl create configmap etcd-data -n kube-system --from-file=ca.crt=$CA_CRT
 
 #Cleanup local files
 rm $ETCD_CRT $ETCD_KEY $ETCD_CSR $CA_CRT $CA_KEY $CONFIG
