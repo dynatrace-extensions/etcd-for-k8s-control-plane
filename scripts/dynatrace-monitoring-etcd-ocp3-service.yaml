@@ -7,9 +7,9 @@ metadata:
     metrics.dynatrace.com/port: '2379'
     metrics.dynatrace.com/scrape: 'true'
     metrics.dynatrace.com/secure: 'true'
-    metrics.dynatrace.com/tls.ca.crt: 'configmap:dynatrace:etcd-data:ca.crt'
-    metrics.dynatrace.com/tls.crt: 'secret:dynatrace:etcd-data:tls.crt'
-    metrics.dynatrace.com/tls.key: 'secret:dynatrace:etcd-data:tls.key'
+    metrics.dynatrace.com/tls.ca.crt: 'configmap:kube-system:etcd-data:ca.crt'
+    metrics.dynatrace.com/tls.crt: 'secret:kube-system:etcd-data:tls.crt'
+    metrics.dynatrace.com/tls.key: 'secret:kube-system:etcd-data:tls.key'
 spec:
   ports:
     - name: dynatrace-monitoring-etcd-ocp3-port
